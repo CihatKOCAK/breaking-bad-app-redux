@@ -5,20 +5,23 @@ import { fetchCharacters } from "../../redux/characterSlice";
 import Masonry from "react-masonry-css";
 import Loading from "../../components/Loading";
 import Error from "../../components/Error";
+import { Link } from "react-router-dom";
 
 export default function Home() {
   const characters = useSelector((state) => state.character.characters);
   const nextPage = useSelector((state) => state.character.page);
   const hasNextPage = useSelector((state) => state.character.hasNextPage);
-  const isLoading = useSelector((state) => state.character.isLoading);
+  const status = useSelector((state) => state.character.status);
   const error = useSelector((state) => state.character.error);
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(fetchCharacters());
+    if (status === "idle") {
+      dispatch(fetchCharacters());
+    }
   }, [dispatch]);
 
-  if (error) {
+  if (status === "failed") {
     return <Error message={error} />;
   }
 
@@ -32,26 +35,25 @@ export default function Home() {
       >
         {characters.map((character) => (
           <div key={character.id}>
-            <img
-              src={character.img}
-              alt={character.name}
-              className="character"
-            />
-            <div className="char-name">{character.name}</div>
+            <Link to={`/char/${character.char_id}`}>
+              <img
+                src={character.img}
+                alt={character.name}
+                className="character"
+              />
+              <div className="char-name">{character.name}</div>
+            </Link>
           </div>
         ))}
       </Masonry>
       <div style={{ padding: "20px 0 40px 0", textAlign: "center" }}>
-        {isLoading && <Loading />}
-        {!isLoading && hasNextPage && (
+        {status == "loading" && <Loading />}
+        {status !== "loading" && hasNextPage && (
           <button onClick={() => dispatch(fetchCharacters(nextPage))}>
             Load More {nextPage}
           </button>
         )}
-        {
-           !isLoading && !hasNextPage && <p>No more characters.</p>
-
-        }
+        {status !== "loading" && !hasNextPage && <p>No more characters.</p>}
       </div>
     </div>
   );
