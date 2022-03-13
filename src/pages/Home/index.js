@@ -8,6 +8,8 @@ import Error from "../../components/Error";
 
 export default function Home() {
   const characters = useSelector((state) => state.character.characters);
+  const nextPage = useSelector((state) => state.character.page);
+  const hasNextPage = useSelector((state) => state.character.hasNextPage);
   const isLoading = useSelector((state) => state.character.isLoading);
   const error = useSelector((state) => state.character.error);
   const dispatch = useDispatch();
@@ -16,11 +18,8 @@ export default function Home() {
     dispatch(fetchCharacters());
   }, [dispatch]);
 
-  if (isLoading) {
-    return <Loading />;
-  }
   if (error) {
-    return <Error message = {error} />
+    return <Error message={error} />;
   }
 
   return (
@@ -42,6 +41,18 @@ export default function Home() {
           </div>
         ))}
       </Masonry>
+      <div style={{ padding: "20px 0 40px 0", textAlign: "center" }}>
+        {isLoading && <Loading />}
+        {!isLoading && hasNextPage && (
+          <button onClick={() => dispatch(fetchCharacters(nextPage))}>
+            Load More {nextPage}
+          </button>
+        )}
+        {
+           !isLoading && !hasNextPage && <p>No more characters.</p>
+
+        }
+      </div>
     </div>
   );
 }
