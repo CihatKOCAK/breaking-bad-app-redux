@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import Loading from "../../components/Loading";
 
-export default function Index() {
+export default function Detail() {
   const { char_id } = useParams();
   const [characters, setCharacters] = useState(null);
   const [loading, setLoading] = useState(true);
