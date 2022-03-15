@@ -1,11 +1,5 @@
 import React from "react";
 import { useSelector } from "react-redux";
-import {
-  fetchAllQuotes,
-  quotesErrorSelector,
-  quotesSelector,
-  quotesStatusSelector,
-} from "../../redux/quotesSlice";
 import { useParams,Navigate  } from "react-router-dom";
 
 function QuoteDetail() {

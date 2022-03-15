@@ -1,60 +1,27 @@
-import { useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { useState } from "react";
+import MenuCard from "./card";
 import "./styles.css";
-import { fetchCharacters } from "../../redux/characterSlice";
-import Masonry from "react-masonry-css";
-import Loading from "../../components/Loading";
-import Error from "../../components/Error";
-import { Link } from "react-router-dom";
-
-export default function Home() {
-  const characters = useSelector((state) => state.character.characters);
-  const nextPage = useSelector((state) => state.character.page);
-  const hasNextPage = useSelector((state) => state.character.hasNextPage);
-  const status = useSelector((state) => state.character.status);
-  const error = useSelector((state) => state.character.error);
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    if (status === "idle") {
-      dispatch(fetchCharacters());
-    }
-  }, [dispatch]);
-
-  if (status === "failed") {
-    return <Error message={error} />;
-  }
+function Home() {
+  const [content, setContent] = useState([
+    { first: "for", sec: "Characters", tr: "go!", url: "/char" },
+    { first: "for", sec: "Quates", tr: "go!", url: "/quotes" },
+    { first: "for", sec: "Deaths", tr: "go!", url: "/deaths" },
+    { first: "for", sec: "Chapters", tr: "go!", url: "/chapters" },
+  ]);
 
   return (
-    <div>
-      <p>Characters: {characters.length}</p>
-      <Masonry
-        breakpointCols={4}
-        className="my-masonry-grid"
-        columnClassName="my-masonry-grid_column"
-      >
-        {characters.map((character) => (
-          <div key={character.id}>
-            <Link to={`/char/${character.char_id}`}>
-              <img
-                src={character.img}
-                alt={character.name}
-                className="character"
-              />
-              <div className="char-name">{character.name}</div>
-            </Link>
-          </div>
-        ))}
-      </Masonry>
-      <div style={{ padding: "20px 0 40px 0", textAlign: "center" }}>
-        {status == "loading" && <Loading />}
-        {status !== "loading" && hasNextPage && (
-          <button onClick={() => dispatch(fetchCharacters(nextPage))}>
-            Load More {nextPage}
-          </button>
-        )}
-        {status !== "loading" && !hasNextPage && <p>No more characters.</p>}
-      </div>
+    <div className="panels">
+      {content.map((item, index) => (
+        <MenuCard
+          id={index + 1}
+          first={item.first}
+          sec={item.sec}
+          tr={item.tr}
+          url={item.url}
+        />
+      ))}
     </div>
   );
 }
+
+export default Home;
