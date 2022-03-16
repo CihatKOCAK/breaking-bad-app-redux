@@ -6,6 +6,7 @@ import Characters from "./pages/Characters";
 import Detail from "./pages/Detail";
 import Quotes from "./pages/Quotes/Index";
 import QuoteDetail from "./pages/QuoteDetail";
+import Loading from "./components/Loading";
 function App() {
   return (
     <Router>

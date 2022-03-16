@@ -1,0 +1,33 @@
+.container-loading {
+  color: #fff;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  overflow: hidden;
+  top: 0;
+  left: 0;
+  z-index: 9999;
+  opacity: 0.4;
+  background-size: cover;
+}
+
+.top {
+  font-size: 8em;
+  text-align: center;
+  font-weight: 300;
+  font-family: "Code";
+}
+
+.loading {
+  text-align: center;
+  font-size: 1.8em;
+  margin-top: 5%;
+  font-family: "Roboto";
+  font-weight: 100;
+}
+
+.loading2 {
+  text-align: center;
+  font-size: 2em;
+  font-family: "Open Sans";
+}
