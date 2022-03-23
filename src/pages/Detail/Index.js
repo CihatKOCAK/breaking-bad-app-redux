@@ -2,7 +2,8 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import Loading from "../../components/Loading";
-
+import Navbar from "../../components/Navbar";
+import "./styles.css";
 export default function Detail() {
   const { char_id } = useParams();
   const [characters, setCharacters] = useState(null);
@@ -17,23 +18,41 @@ export default function Detail() {
         setLoading(false);
       });
   }, [char_id]);
-  console.log(char_id);
   return (
     <div>
       {loading && <Loading />}
+
       {characters && (
-        <div>
-          <h1>{characters.name}</h1>
-          <img
-            src={characters.img}
-            alt={characters.name}
-            style={{ width: "50%" }}
-          />
-        </div>
+        <>
+          <Navbar name={characters.name} />
+          <div className="characterCard">
+            <div className="characterContainer">
+              <div className="characterImage">
+                <img src={characters.img} alt={characters.name} />
+              </div>
+              <div className="characterInfo">
+                <div className="characterInfoTitle">
+                  <h1>
+                    {characters.name} / {characters.nickname}
+                  </h1>
+                </div>
+                <div className="characterInfoText">
+                  <p>Actor Name: {characters.portrayed}</p>
+                  <p>Birthday: {characters.birthday}</p>
+                  <p>Status: {characters.status}</p>
+                  <p>Occupation:</p>
+                  <ul>
+                    {characters.occupation &&
+                      characters.occupation.map((occupation) => (
+                        <li>{occupation}</li>
+                      ))}
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </>
       )}
-      <pre>
-        {characters && JSON.stringify(characters, null, 2)}
-      </pre>
     </div>
   );
 }

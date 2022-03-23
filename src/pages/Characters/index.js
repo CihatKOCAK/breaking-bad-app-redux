@@ -6,6 +6,7 @@ import Masonry from "react-masonry-css";
 import Loading from "../../components/Loading";
 import Error from "../../components/Error";
 import { Link } from "react-router-dom";
+import Navbar from "../../components/Navbar";
 
 export default function Home() {
   const characters = useSelector((state) => state.character.characters);
@@ -27,7 +28,9 @@ export default function Home() {
 
   return (
     <div>
-      <p>Characters: {characters.length}</p>
+     
+     <Navbar name= {"Characters "+ characters.length} />
+
       <Masonry
         breakpointCols={4}
         className="my-masonry-grid"
@@ -47,10 +50,10 @@ export default function Home() {
         ))}
       </Masonry>
       <div style={{ padding: "20px 0 40px 0", textAlign: "center" }}>
-        {status == "loading" && <Loading />}
+        {status === "loading" && <Loading />}
         {status !== "loading" && hasNextPage && (
           <button onClick={() => dispatch(fetchCharacters(nextPage))}>
-            Load More {nextPage}
+            Load More Characters
           </button>
         )}
         {status !== "loading" && !hasNextPage && <p>No more characters.</p>}

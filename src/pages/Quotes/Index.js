@@ -9,6 +9,7 @@ import {
 import Error from "../../components/Error";
 import Loading from "../../components/Loading";
 import Item from "./Item";
+import Navbar from "../../components/Navbar";
 
 function Index() {
   const dispatch = useDispatch();
@@ -16,9 +17,9 @@ function Index() {
   const status = useSelector(quotesStatusSelector);
   const error = useSelector(quotesErrorSelector);
   useEffect(() => {
-   if(status === "idle") {
-     dispatch(fetchAllQuotes());
-   }
+    if (status === "idle") {
+      dispatch(fetchAllQuotes());
+    }
   }, [dispatch]);
 
   if (error) {
@@ -29,9 +30,12 @@ function Index() {
   return (
     <div style={{ padding: 10 }}>
       {status === "loading" && <Loading />}
+      {status === "succeeded" && <Navbar name={"Quotes " + data.length} />}
       {status === "succeeded" &&
         data.map((quote) => <Item key={quote.id} quote={quote} />)}
-      {status === "succeeded" &&  <div className="quotes_info"> {data.length} quotes. </div>}
+      {status === "succeeded" && (
+        <div className="quotes_info"> {data.length} quotes. </div>
+      )}
     </div>
   );
 }

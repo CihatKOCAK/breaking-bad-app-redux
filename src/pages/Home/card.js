@@ -7,13 +7,12 @@ function MenuCard(props) {
   return (
     <OuterClick
       as="div"
-      key={props.id}
+      key={"menu"+props.id.toString()}
       className={"panel panel" + props.id + (show ? " open open-active" : "")}
       onClick={() => setShow(!show)}
       onOuterClick={(e) => {
         e.preventDefault();
         setShow(false);
-        console.log("clicked outside 1");
       }}
     >
       <p>{props.first}</p>
