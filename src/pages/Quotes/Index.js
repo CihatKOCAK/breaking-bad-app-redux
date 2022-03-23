@@ -25,8 +25,6 @@ function Index() {
   if (error) {
     return <Error message={error} />;
   }
-
-  console.log(data);
   return (
     <div style={{ padding: 10 }}>
       {status === "loading" && <Loading />}

@@ -1,0 +1,21 @@
+.deathCard {
+  background: #fff;
+  font-family: system-ui, sans-serif;
+  height: 98.65vh;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  flex-wrap: wrap;
+}
+.card {
+  width: 300px;
+  height: 300px;
+  margin: 50px;
+  padding: 20px;
+  border-radius: 50px;
+  max-width: 90%;
+  max-height: 90%;
+  position: relative;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+  background-size: cover !important;
+}
