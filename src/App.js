@@ -15,7 +15,7 @@ function App() {
         <Route exact path="/char" element={<Characters />} />
         <Route path="/char/:char_id" element={<Detail />} />
         <Route exact path="/quotes" element={<Quotes />} />
-        <Route path="/quotes/:quote_id" element={<QuoteDetail />} />
+        <Route path="/quotes/:quote_id" element={<QuoteDetail />} /> 
       </Routes>
     </Router>
   );
